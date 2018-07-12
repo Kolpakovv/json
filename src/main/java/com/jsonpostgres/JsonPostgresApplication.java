@@ -1,4 +1,4 @@
-package com.kirillch.jsonpostgres;
+package com.jsonpostgres;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
