@@ -1,9 +1,9 @@
-package com.kirillch.jsonpostgres.controllers;
+package com.jsonpostgres.controllers;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kirillch.jsonpostgres.entities.Person;
-import com.kirillch.jsonpostgres.repositories.PersonRepository;
+import com.jsonpostgres.entities.Person;
+import com.jsonpostgres.repositories.PersonRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
