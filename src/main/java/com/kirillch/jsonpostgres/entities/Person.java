@@ -15,7 +15,7 @@ public class Person {
     private long id;
 
     private String email;
-    private String country;
+    private String pass;
 
 
     public Person() {
@@ -37,11 +37,11 @@ public class Person {
         this.email = email;
     }
 
-    public String getCountry() {
-        return country;
+    public String getpass() {
+        return pass;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
+    public void setpass(String pass) {
+        this.pass = pass;
     }
 }

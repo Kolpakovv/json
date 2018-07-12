@@ -1,5 +1,4 @@
 package com.kirillch.jsonpostgres.controllers;
-
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kirillch.jsonpostgres.entities.Person;
@@ -27,6 +26,7 @@ public class PersonController {
     public PersonController(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
+
 
     @RequestMapping(value = "json")
     public void json() {
