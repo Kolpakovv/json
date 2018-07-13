@@ -9,12 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-
-import java.io.IOException;
-
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class GreetingController {
@@ -29,12 +24,13 @@ public class GreetingController {
     private final static Logger logger = LoggerFactory.getLogger(PersonController.class);
 
     @GetMapping("/greeting")
+    @RequestMapping(value="/greeting", method = RequestMethod.GET)
     public String greetingForm(Model model) {
         model.addAttribute("greeting", new Greetings());
         return "greeting";
     }
 
-    @PostMapping("/greeting")
+    @RequestMapping(value = "/greeting", method = RequestMethod.POST)
     public String greetingSubmit(@ModelAttribute Greetings greeting, Model model){
     model.addAttribute("greeting", greeting);
 

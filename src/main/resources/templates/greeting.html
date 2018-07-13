@@ -1,15 +1,37 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html
+        xml lang="en" xmlns="http://www.w3.org/1999/xhtml"xmlns:th="http://www.thymeleaf.org">
+
+
+
+
 <head>
-    <title>Getting Started: Handling Form Submission</title>
+    <h1 align="center">Registration page</h1>
+    <link th:href="@{css/style.css}" rel="stylesheet" />
+    <link th:href="@{css/fv.css}" rel="stylesheet" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="User account registration" />
+    <meta name="author" content="Amir Boroumand" />
+    <link rel="icon" href="favicon.ico" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
+
+
 <body>
-<h1>Form</h1>
+<title>Registration Page</title>
+<center>
+
+    <h1>Form</h1>
+
 <form action="#" th:action="@{/greeting}" th:object="${greeting}" method="post">
-    <p>email: <input type="text" th:field="*{email}" /></p>
-    <p>pass: <input type="text" th:field="*{pass}" /></p>
+    <p>Email: <input type="text" th:field="*{Email}" /></p>
+    <p>  Pass  :  <input type="text"  th:field= "*{Pass}" /></p>
     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+
 </form>
+
+</center>
 </body>
 </html>
