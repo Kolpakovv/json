@@ -1,4 +1,4 @@
-package com.kirillch.jsonpostgres.entities;
+package com.jsonpostgres.entities;
 
 public class Greetings {
 

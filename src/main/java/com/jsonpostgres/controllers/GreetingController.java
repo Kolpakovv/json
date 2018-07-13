@@ -1,6 +1,6 @@
-package com.kirillch.jsonpostgres.controllers;
+package com.jsonpostgres.controllers;
 
-import com.kirillch.jsonpostgres.entities.Greetings;
+import com.jsonpostgres.entities.Greetings;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
