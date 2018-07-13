@@ -1,10 +1,8 @@
 package com.jsonpostgres.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import org.hibernate.annotations.Subselect;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Transient;
@@ -14,7 +12,12 @@ import org.springframework.data.annotation.Transient;
 public class Person {
 
     @Id
-    @GeneratedValue
+    @SequenceGenerator(name="idgen",
+            sequenceName="idgen",
+            allocationSize=1,schema = "json")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+            generator="idgen")
+    @Column(name = "id", updatable=false)
 
     private long id;
 
