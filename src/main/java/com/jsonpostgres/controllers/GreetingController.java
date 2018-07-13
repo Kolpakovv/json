@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import java.io.IOException;
+
 
 
 @Controller
@@ -48,7 +48,7 @@ public class GreetingController {
             personRepository.save(people);
 
             logger.info("Record saved.");
-        }catch (Throwable error) {System.out.print("xernya");
+        }catch (Throwable error) {System.out.print("Error");
 
         }
         return "result";
