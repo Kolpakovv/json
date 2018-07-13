@@ -2,22 +2,32 @@ package com.jsonpostgres.entities;
 
 public class Greetings {
 
+    private long id;
+
     private String email;
     private String pass;
 
-    public String getemail() {
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
         return email;
     }
 
-    public void setemail(String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public String getpass() {
+    public String getPass() {
         return pass;
     }
 
-    public void setpass(String pass) {
+    public void setPass(String pass) {
         this.pass = pass;
     }
 
