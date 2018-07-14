@@ -7,19 +7,37 @@ import com.jsonpostgres.repositories.PersonRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 
 
 @Controller
 public class GreetingController {
 
-    private PersonRepository personRepository;
+    public static boolean containspass(List<Person> c, String pass) {
+        for(Person o : c) {
+            if(o != null && o.getpass().equals(pass)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean containemail(List<Person> c, String email) {
+        for(Person o : c) {
+            if(o != null && o.getEmail().equals(email)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+        private PersonRepository personRepository;
 
     @Autowired
     public GreetingController(PersonRepository personRepository) {
@@ -39,19 +57,42 @@ public class GreetingController {
     public String greetingSubmit(@ModelAttribute Greetings greeting, Model model){
     model.addAttribute("greeting", greeting);
 
+
+
         Person people = new Person();
         people.setId(greeting.getId());
         people.setEmail(greeting.getEmail());
         people.setpass(greeting.getPass());
 
-        try {
+        /*try {
 
-            personRepository.save(people);
+            personRepository.findAll();
 
             logger.info("Record saved.");
         }catch (Throwable error) {System.out.print("xernya");
 
+        }*/
+        try {
+
+            List <Person> persons = personRepository.findByEmail(people.getEmail());
+
+            if (containemail(persons,people.getEmail()) == true) {
+                if(containspass(persons,people.getpass()) == true){System.out.println("uspex");}
+                else {System.out.println("neverny parol");}
+
+            }else {System.out.println("Polzovatel ne naiden");}
+
+
+
+            /*for (Person person : persons) {
+                System.out.println(people.getEmail());
+
+            }*/
+            logger.info("Record saved.");
+        }catch (Throwable error) {System.out.print("xernya");
+
         }
+
         return "result";
 
     }
