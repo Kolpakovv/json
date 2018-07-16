@@ -112,7 +112,7 @@ public class GreetingController {
         try {
             List <Person> persons = personRepository.findByEmail(people.getEmail());
 
-            if (containemail(persons,people.getEmail()) == true) {System.out.print("Polzovatel c takim Email uzhe sushestvuet");
+            if (containemail(persons,people.getEmail()) == true) {return ("/regerror");
             }else {personRepository.save(people);
 
             logger.info("Record saved.");
