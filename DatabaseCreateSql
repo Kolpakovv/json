@@ -1,3 +1,4 @@
+CREATE SCHEMA json
 CREATE SEQUENCE json.idgen;
 CREATE TABLE json.person
 (
