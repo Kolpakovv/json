@@ -3,7 +3,7 @@
       xml lang="en" xmlns="http://www.w3.org/1999/xhtml"xmlns:th="http://www.thymeleaf.org">
 <head>
 
-    <h1 align="center">authorization page</h1>
+    <h1 align="center">Authorization page</h1>
     <link th:href="@{css/style.css}" rel="stylesheet" />
     <link th:href="@{css/fv.css}" rel="stylesheet" />
     <meta charset="utf-8" />
@@ -15,16 +15,23 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<title>Registration Page</title>
+<title>Aegistration Page</title>
 <center>
 
     <h1>Form</h1>
 
     <form action="#" th:action="@{/authorization}" th:object="${authorization}" method="post">
-        <p>Email: <input type="email" th:field="*{Email}" required/></p>
-        <p>  Pass  :  <input type="text"  th:field= "*{Pass}" /></p>
-        <p><input type="submit" value="Submit" /> </p>
-
+     <table>
+         <tr>
+             <td>Email:</td> <td><input type="email" th:field="*{Email}" required/></td>
+         </tr>
+        <tr>
+            <td>  Password  : </td> <td><input type="text"  th:field= "*{Pass}" /></td>
+        </tr>
+        <tr>
+            <td><input type="submit" value="Submit" /> </td>
+        </tr>
+     </table>
     </form>
     <a href="/greeting">Registration</a>
 </center>
