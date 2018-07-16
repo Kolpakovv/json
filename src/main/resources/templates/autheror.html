@@ -1,0 +1,17 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Registration Page</title>
+</head>
+<body>
+<center>
+    <h1>Authorization Error</h1>
+    <p th:text="'email: ' + ${authorization.email}" />
+    <p th:text="'pass: ' + ${authorization.pass}" />
+    <a href="/authorization">Submit another message</a>
+    <a href="/greeting">Registration</a>
+</center>
+</body>
+</html>

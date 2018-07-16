@@ -26,10 +26,19 @@
     <h1>Form</h1>
 
 <form action="#" th:action="@{/greeting}" th:object="${greeting}" method="post">
-    <p>Email: <input type="email" th:field="*{Email}" required/></p>
-    <p>  Pass  :  <input type="text"  th:field= "*{Pass}" /></p>
-    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+    <table>
+       <tr>
+           <td>Email: </td><td><input type="email" th:field="*{Email}" required/></td>
+       </tr>
+    <tr>
+        <td> Password  :</td> <td> <input type="password"  th:field= "*{Pass}" minlength="5" maxlength="20" required/></td>
+    </tr>
+        <tr>
+            <td><input type="submit" value="Submit" /></td>
 
+         </tr>
+
+    </table>
 </form>
     <a href="/authorization">Authorization</a>
 </center>
