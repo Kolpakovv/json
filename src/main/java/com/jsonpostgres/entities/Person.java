@@ -1,5 +1,4 @@
 package com.jsonpostgres.entities;
-
 import javax.persistence.*;
 
 import org.hibernate.annotations.Subselect;
@@ -10,7 +9,6 @@ import org.springframework.data.annotation.Transient;
 @Entity
 @Table(schema="json", name = "person")
 public class Person {
-
     @Id
     @SequenceGenerator(name="idgen",
             sequenceName="idgen",
@@ -20,14 +18,12 @@ public class Person {
     @Column(name = "id", updatable=false)
 
     private long id;
-
     private String email;
     private String pass;
 
 
     public Person() {
     }
-
     public long getId() {
         return id;
     }
