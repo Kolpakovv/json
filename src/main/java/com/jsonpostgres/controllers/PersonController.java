@@ -18,41 +18,26 @@ import java.util.List;
 
 @RestController
 public class PersonController {
-
     private final static Logger logger = LoggerFactory.getLogger(PersonController.class);
-
     private PersonRepository personRepository;
-
     @Autowired
     public PersonController(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
-
     @RequestMapping(value = "json")
     public void json() {
-        //get json data from file "people.json" in our resources
-
-//        For Windows
-//        URL url = this.getClass().getClassLoader().getResource("people.json");
-//        File jsonFile = new File(url.getFile());
-
         File jsonFile = null;
         try {
             jsonFile = ResourceUtils.getFile("classpath:people.json");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
         ObjectMapper objectMapper = new ObjectMapper();
-
         try {
             List<Person> people = objectMapper.readValue(jsonFile, new TypeReference<List<Person>>() {
             });
-
             personRepository.saveAll(people);
-
             logger.info("All records saved.");
-
         } catch (IOException e) {
             e.printStackTrace();
         }
