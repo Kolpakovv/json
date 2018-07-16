@@ -1,0 +1,9 @@
+CREATE SCHEMA json
+CREATE SEQUENCE json.idgen;
+CREATE TABLE json.person
+(
+    id bigint NOT NULL DEFAULT nextval('json.idgen'::regclass),
+    email character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    pass character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    CONSTRAINT person_pkey PRIMARY KEY (id)
+)
