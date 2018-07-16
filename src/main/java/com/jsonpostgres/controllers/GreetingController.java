@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.jsonpostgres.entities.Greetings;
 import com.jsonpostgres.entities.Person;
 import com.jsonpostgres.repositories.PersonRepository;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,13 @@ public class GreetingController {
         return false;
     }
 
+    public static String md5Apache(String st) {
+        String md5Hex = DigestUtils.md5Hex(st);
+
+        return md5Hex;
+    }
+
+
         private PersonRepository personRepository;
 
     @Autowired
@@ -52,6 +60,43 @@ public class GreetingController {
         model.addAttribute("greeting", new Greetings());
         return "greeting";
     }
+    @GetMapping("/authorization")
+    @RequestMapping(value="/authorization", method = RequestMethod.GET)
+    public String authorizationForm(Model model) {
+        model.addAttribute("authorization", new Greetings());
+        return "authorization";
+    }
+
+    @RequestMapping(value = "/authorization", method = RequestMethod.POST)
+    public String AutentificationSubmit(@ModelAttribute Greetings autent, Model model){
+        model.addAttribute("authorization", autent);
+        Person people = new Person();
+        people.setId(autent.getId());
+        people.setEmail(autent.getEmail().toLowerCase());
+        people.setpass(md5Apache(autent.getPass()));
+        try {
+
+            List <Person> persons = personRepository.findByEmail(people.getEmail());
+
+            if (containemail(persons,people.getEmail()) == true) {
+                if(containspass(persons,people.getpass()) == true){return "autresult";}
+                else {return "autheror";}
+
+            }else {return "autheror";}
+
+
+
+
+
+        }catch (Throwable error) {System.out.print("xernya");
+
+        }
+
+
+        return "autresult";
+    }
+
+
 
     @RequestMapping(value = "/greeting", method = RequestMethod.POST)
     public String greetingSubmit(@ModelAttribute Greetings greeting, Model model){
@@ -61,37 +106,23 @@ public class GreetingController {
 
         Person people = new Person();
         people.setId(greeting.getId());
-        people.setEmail(greeting.getEmail());
-        people.setpass(greeting.getPass());
+        people.setEmail(greeting.getEmail().toLowerCase());
+        people.setpass(md5Apache(greeting.getPass()));
 
-        /*try {
-
-            personRepository.findAll();
-
-            logger.info("Record saved.");
-        }catch (Throwable error) {System.out.print("xernya");
-
-        }*/
         try {
-
             List <Person> persons = personRepository.findByEmail(people.getEmail());
 
-            if (containemail(persons,people.getEmail()) == true) {
-                if(containspass(persons,people.getpass()) == true){System.out.println("uspex");}
-                else {System.out.println("neverny parol");}
+            if (containemail(persons,people.getEmail()) == true) {System.out.print("Polzovatel c takim Email uzhe sushestvuet");
+            }else {personRepository.save(people);
 
-            }else {System.out.println("Polzovatel ne naiden");}
-
-
-
-            /*for (Person person : persons) {
-                System.out.println(people.getEmail());
-
-            }*/
             logger.info("Record saved.");
+               // System.out.print(md5Apache(people.getpass()));
+
+            }
         }catch (Throwable error) {System.out.print("xernya");
 
         }
+
 
         return "result";
 
