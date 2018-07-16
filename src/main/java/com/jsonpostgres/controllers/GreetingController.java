@@ -69,7 +69,7 @@ public class GreetingController {
                 if(containspass(persons,people.getpass()) == true){return "autresult";}
                 else {return "autheror";}
             }else {return "autheror";}
-        }catch (Throwable error) {System.out.print("xernya");
+        }catch (Throwable error) {System.out.print("error");
         }
         return "autresult";
     }
@@ -88,7 +88,7 @@ public class GreetingController {
             logger.info("Record saved.");
                // System.out.print(md5Apache(people.getpass()));
             }
-        }catch (Throwable error) {System.out.print("xernya");
+        }catch (Throwable error) {System.out.print("error");
         }
         return "result";
     }

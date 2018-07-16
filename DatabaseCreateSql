@@ -1,4 +1,5 @@
-CREATE SCHEMA json
+CREATE DATABASE postgres;
+CREATE SCHEMA json;
 CREATE SEQUENCE json.idgen;
 CREATE TABLE json.person
 (
