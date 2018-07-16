@@ -43,7 +43,7 @@ public class GreetingController {
     public GreetingController(PersonRepository personRepository) {
         this.personRepository = personRepository;
     }
-    private final static Logger logger = LoggerFactory.getLogger(PersonController.class);
+    private final static Logger logger = LoggerFactory.getLogger(GreetingController.class);
     @GetMapping("/greeting")
     @RequestMapping(value="/greeting", method = RequestMethod.GET)
     public String greetingForm(Model model) {
