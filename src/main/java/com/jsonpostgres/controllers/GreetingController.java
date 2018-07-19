@@ -1,6 +1,6 @@
 package com.jsonpostgres.controllers;
 
-import com.fasterxml.jackson.core.type.TypeReference;
+
 import com.jsonpostgres.entities.Greetings;
 import com.jsonpostgres.entities.Person;
 import com.jsonpostgres.repositories.PersonRepository;
@@ -8,13 +8,12 @@ import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+
 @Controller
 public class GreetingController {
 
@@ -50,6 +49,13 @@ public class GreetingController {
         model.addAttribute("greeting", new Greetings());
         return "greeting";
     }
+
+    @GetMapping("/autresult")
+    @RequestMapping(value="/autresult", method = RequestMethod.GET)
+    public String autForm() {
+        //model.addAttribute("autresult", new Greetings());
+        return "autresult";}
+
     @GetMapping("/authorization")
     @RequestMapping(value="/authorization", method = RequestMethod.GET)
     public String authorizationForm(Model model) {
