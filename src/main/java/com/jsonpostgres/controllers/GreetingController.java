@@ -55,9 +55,32 @@ public class GreetingController {
     @RequestMapping(value="/VkReg", method = RequestMethod.GET)
     public String VkForm(Model model,HttpServletRequest request) {
         model.addAttribute("VkReg", new Greetings());
-        String test = request.getRequestURI();
-        System.out.println(test);
+
+
         return "VkReg";}
+
+
+    @RequestMapping(value = "/VkReg", method = RequestMethod.POST)
+    public String VkReg(@ModelAttribute Greetings vkreg, Model model){
+        model.addAttribute("VkReg", vkreg);
+
+        Person people = new Person();
+        people.setId(vkreg.getId());
+        people.setEmail(vkreg.getEmail().toLowerCase());
+        people.setpass(md5Apache(vkreg.getPass()));
+        try {
+            List <Person> persons = personRepository.findByEmail(people.getEmail());
+
+            if (containemail(persons,people.getEmail()) == true) {return ("/regerror");
+            }else {personRepository.save(people);
+                logger.info("Record saved.");
+
+            }
+        }catch (Throwable error) {System.out.print("error");
+        }
+        return "VkRegResult";
+        }
+
 
     @GetMapping("/authorization")
     @RequestMapping(value="/authorization", method = RequestMethod.GET)
