@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html
+        xml lang="en" xmlns="http://www.w3.org/1999/xhtml"xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <h1 align="center">Registration from Vk page</h1>
+    <meta charset="utf-8" />
+</head>
+<body>
+<title>Registration from VK Page</title>
+<center>
+    <form action="#" th:action="@{/VkReg}" th:object="${VkReg}" method="post">
+        <table>
+            <tr>
+                <td>Email: </td><td><input type="email" th:field="*{Email}" required maxlength="50"/></td>
+            </tr>
+            <tr>
+                <td> Password  :</td> <td> <input type="password"  th:field= "*{Pass}" minlength="5" maxlength="20" required/></td>
+            </tr>
+            <tr>
+                <td><input type="submit" value="Submit" /></td>
+            </tr>
+        </table>
+    </form>
+
+
+</center>
+</body>
+</html>

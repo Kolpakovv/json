@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -50,11 +51,13 @@ public class GreetingController {
         return "greeting";
     }
 
-    @GetMapping("/autresult")
-    @RequestMapping(value="/autresult", method = RequestMethod.GET)
-    public String autForm() {
-        //model.addAttribute("autresult", new Greetings());
-        return "autresult";}
+    @GetMapping("/VkReg")
+    @RequestMapping(value="/VkReg", method = RequestMethod.GET)
+    public String VkForm(Model model,HttpServletRequest request) {
+        model.addAttribute("VkReg", new Greetings());
+        String test = request.getRequestURI();
+        System.out.println(test);
+        return "VkReg";}
 
     @GetMapping("/authorization")
     @RequestMapping(value="/authorization", method = RequestMethod.GET)
