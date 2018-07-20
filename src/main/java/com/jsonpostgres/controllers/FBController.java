@@ -35,7 +35,7 @@ public class FBController {
     @RequestMapping(value = "/facebookConnect", method = RequestMethod.POST)
     public String FaceReg(@ModelAttribute Greetings facereg, Model model ,HttpServletRequest request ){
         model.addAttribute("facebookConnect", facereg );
-        return "facebookConnect";
+        return "facebookConnected";
 
     }
 
