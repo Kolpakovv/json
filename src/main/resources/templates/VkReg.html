@@ -9,16 +9,19 @@
     function showLoc() {
   var str = String(window.location);
   var arr = str.split('#');
-  var a = arr.length - 1;
-  var email = arr[a];
-    var tok = arr[1];
-    var token = tok.split('&')
-  var elem = document.getElementById('2');
-  elem.setAttribute('value', email);
-    document.cookie = ('token = ' + token[0]);
-    document.cookie = ('time = ' + token[1]);
-     document.cookie = ('id = ' + token[2]);
-     document.cookie = ('email = ' + token[3]);
+    var yakor = arr[1];
+    var tok = yakor.split('&')
+    var spl1 = tok[0];
+    var res1 = spl1.split('=');
+    document.cookie = ('token = ' + res1[1]);
+    var spl2 = tok[2];
+    var res2 = spl2.split('=');
+    document.cookie = ('id = ' + res2[1]);
+    var spl3 = tok[3];
+    var res3 = spl3.split('=');
+    document.cookie = ('email = ' + res3[1]);
+
+
 
     alert(document.cookie);
 

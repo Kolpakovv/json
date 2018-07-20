@@ -2,7 +2,9 @@ package com.jsonpostgres.controllers;
 
 import com.jsonpostgres.entities.Greetings;
 import com.jsonpostgres.entities.Person;
+import com.jsonpostgres.entities.Vk;
 import com.jsonpostgres.repositories.PersonRepository;
+import com.jsonpostgres.repositories.VkRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,26 +27,52 @@ import static com.jsonpostgres.controllers.GreetingController.md5Apache;
 @Controller
 public class VkController {
     @Autowired
-    public VkController(PersonRepository personRepository) {
+    public VkController(PersonRepository personRepository, VkRepository vkRepository) {
         this.personRepository = personRepository;
+        this.vkRepository = vkRepository;
     }
     private final static Logger logger = LoggerFactory.getLogger(VkController.class);
     private PersonRepository personRepository;
+    private VkRepository vkRepository;
     @GetMapping("/VkReg")
     @RequestMapping(value="/VkReg", method = RequestMethod.GET)
     public String VkForm(Model model, HttpServletRequest request) {
         model.addAttribute("VkReg", new Greetings());
         Cookie[] cookies = request.getCookies();
-        String token = cookies[2].getValue();
-        System.out.println(cookies[3].getValue());
-        System.out.println(cookies[4].getValue());
-        System.out.println(cookies[5].getValue());
-        System.out.println(cookies[6].getValue());
+        int arrlenght = cookies.length;
+        System.out.println(arrlenght);
+        System.out.println(cookies[arrlenght-3].getValue());
+        System.out.println(cookies[arrlenght-2].getValue());
+        System.out.println(cookies[arrlenght-1].getValue());
+        String email = cookies[arrlenght-1].getValue();
+        String Vkid = cookies[arrlenght-2].getValue();
+        Person people = new Person();
+        people.setId(people.getId());
+        people.setEmail(email.toLowerCase());
 
+        Vk men = new Vk();
+        men.setId(men.getId());
+        men.setEmail(email.toLowerCase());
+        men.setVkid(Vkid);
+
+        try {
+            List <Person> persons = personRepository.findByEmail(people.getEmail());
+
+            if (containemail(persons,people.getEmail()) == true) {return ("/regerror");
+            }else {personRepository.save(people);
+                    vkRepository.save(men);
+                logger.info("Record saved.");
+
+            }
+        }catch (Throwable error) {System.out.print("error");
+        }
 
         return "VkReg";}
 
-    @RequestMapping(value = "/VkReg", method = RequestMethod.POST)
+
+
+
+        @RequestMapping(value = "/VkReg", method = RequestMethod.POST)
     public String VkReg(@ModelAttribute Greetings vkreg, Model model ,HttpServletRequest request ){
         model.addAttribute("VkReg", vkreg );
 
