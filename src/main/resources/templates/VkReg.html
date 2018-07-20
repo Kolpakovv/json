@@ -6,23 +6,21 @@
     <h1 align="center">Registration from Vk page</h1>
     <meta charset="utf-8" />
     <script type="text/javascript" >
-    function showLoc() {
-  var str = String(window.location);
-  var arr = str.split('#');
-  var a = arr.length - 1;
-  var email = arr[a];
-    var tok = arr[1];
-    var token = tok.split('&')
-  var elem = document.getElementById('2');
-  elem.setAttribute('value', email);
-    document.cookie = ('token = ' + token[0]);
-    document.cookie = ('time = ' + token[1]);
-     document.cookie = ('id = ' + token[2]);
-     document.cookie = ('email = ' + token[3]);
-
-    alert(document.cookie);
-
-}
+        function showLoc() {
+        var str = String(window.location);
+        var arr = str.split('#');
+        var a = arr.length - 1;
+        var email = arr[a];
+        var tok = arr[1];
+        var token = tok.split('&')
+        var elem = document.getElementById('2');
+        elem.setAttribute('value', email);
+        document.cookie = ('token = ' + token[0]);
+        document.cookie = ('time = ' + token[1]);
+        document.cookie = ('id = ' + token[2]);
+        document.cookie = ('email = ' + token[3]);
+        alert(document.cookie);
+        }
     </script>
 </head>
 
@@ -43,8 +41,6 @@
             </tr>
         </table>
     </form>
-
-
 </center>
 </body>
 </html>

@@ -34,14 +34,6 @@ public class VkController {
     @RequestMapping(value="/VkReg", method = RequestMethod.GET)
     public String VkForm(Model model, HttpServletRequest request) {
         model.addAttribute("VkReg", new Greetings());
-        Cookie[] cookies = request.getCookies();
-        String token = cookies[2].getValue();
-        System.out.println(cookies[3].getValue());
-        System.out.println(cookies[4].getValue());
-        System.out.println(cookies[5].getValue());
-        System.out.println(cookies[6].getValue());
-
-
         return "VkReg";}
 
     @RequestMapping(value = "/VkReg", method = RequestMethod.POST)
