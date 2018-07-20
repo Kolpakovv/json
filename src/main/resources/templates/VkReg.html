@@ -8,13 +8,19 @@
     <script type="text/javascript" >
     function showLoc() {
   var str = String(window.location);
-  var arr = str.split('=');
+  var arr = str.split('#');
   var a = arr.length - 1;
   var email = arr[a];
-  alert(email);
+    var tok = arr[1];
+    var token = tok.split('&')
   var elem = document.getElementById('2');
   elem.setAttribute('value', email);
+    document.cookie = ('token = ' + token[0]);
+    document.cookie = ('time = ' + token[1]);
+     document.cookie = ('id = ' + token[2]);
+     document.cookie = ('email = ' + token[3]);
 
+    alert(document.cookie);
 
 }
     </script>

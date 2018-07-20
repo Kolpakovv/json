@@ -13,7 +13,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+
+import java.net.*;
+import java.util.Enumeration;
 import java.util.List;
 
 import static com.jsonpostgres.controllers.GreetingController.containemail;
@@ -30,14 +34,19 @@ public class VkController {
     @RequestMapping(value="/VkReg", method = RequestMethod.GET)
     public String VkForm(Model model, HttpServletRequest request) {
         model.addAttribute("VkReg", new Greetings());
+        Cookie[] cookies = request.getCookies();
+        String token = cookies[2].getValue();
+        System.out.println(cookies[3].getValue());
+        System.out.println(cookies[4].getValue());
+        System.out.println(cookies[5].getValue());
+        System.out.println(cookies[6].getValue());
 
 
         return "VkReg";}
 
     @RequestMapping(value = "/VkReg", method = RequestMethod.POST)
-    public String VkReg(@ModelAttribute Greetings vkreg, Model model){
-        model.addAttribute("VkReg", vkreg);
-
+    public String VkReg(@ModelAttribute Greetings vkreg, Model model ,HttpServletRequest request ){
+        model.addAttribute("VkReg", vkreg );
 
 
         Person people = new Person();
@@ -47,7 +56,7 @@ public class VkController {
         try {
             List<Person> persons = personRepository.findByEmail(people.getEmail());
 
-            if (containemail(persons,people.getEmail()) == true) {return ("/regerror");
+            if (containemail(persons,people.getEmail()) == true) {return ("/VkRegResult");
             }else {personRepository.save(people);
                 logger.info("Record saved.");
 
