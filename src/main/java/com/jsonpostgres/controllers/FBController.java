@@ -24,19 +24,18 @@ import static com.jsonpostgres.controllers.GreetingController.containemail;
 import static com.jsonpostgres.controllers.GreetingController.md5Apache;
 
 @Controller
-@RequestMapping("/facebookConnect")
 public class FBController {
+    @GetMapping("/FBtest")
+    @RequestMapping(value="/FBtest", method = RequestMethod.GET)
+    public String FaceForm() {
+
+        return "FBtest";}
+
     @GetMapping("/facebookConnect")
     @RequestMapping(value="/facebookConnect", method = RequestMethod.GET)
-    public String FaceForm(Model model, HttpServletRequest request) {
-        model.addAttribute("facebookConnect", new Greetings());
+    public String FaceForm1() {
+
         return "facebookConnect";}
 
-    @RequestMapping(value = "/facebookConnect", method = RequestMethod.POST)
-    public String FaceReg(@ModelAttribute Greetings facereg, Model model ,HttpServletRequest request ){
-        model.addAttribute("facebookConnect", facereg );
-        return "facebookConnected";
-
-    }
 
 }
