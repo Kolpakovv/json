@@ -3,14 +3,14 @@
         xml lang="en" xmlns="http://www.w3.org/1999/xhtml"xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <h1 align="center">Registration from Vk page</h1>
+
     <meta charset="utf-8" />
     <script type="text/javascript" >
     function showLoc() {
   var str = String(window.location);
   var arr = str.split('#');
     var yakor = arr[1];
-    var tok = yakor.split('&')
+    var tok = yakor.split('&');
     var spl1 = tok[0];
     var res1 = spl1.split('=');
     document.cookie = ('token = ' + res1[1]);
@@ -21,33 +21,16 @@
     var res3 = spl3.split('=');
     document.cookie = ('email = ' + res3[1]);
 
+        //alert(document.cookie);
 
 
-    alert(document.cookie);
+    window.location.replace("/VkRegResult")}
 
-}
+    document.addEventListener("DOMContentLoaded", showLoc)
     </script>
 </head>
 
-<body onload="showLoc()">
+<body >
 
-<title>Registration from VK Page</title>
-<center>
-    <form id="1" action="#" th:action="@{/VkReg}" th:object="${VkReg}" method="post">
-        <table>
-            <tr>
-                <td>Email: </td><td><input id= "2" type="email" th:field="*{Email}"  maxlength="50"/></td>
-            </tr>
-            <tr>
-                <td> Password  :</td> <td> <input type="password"  th:field= "*{Pass}" minlength="5" maxlength="20" required/></td>
-            </tr>
-            <tr>
-                <td><input type="submit" value="Submit" /></td>
-            </tr>
-        </table>
-    </form>
-
-
-</center>
 </body>
 </html>

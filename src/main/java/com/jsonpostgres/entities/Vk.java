@@ -1,33 +1,35 @@
 package com.jsonpostgres.entities;
 import javax.persistence.*;
+import java.io.Serializable;
 
-import org.hibernate.annotations.Subselect;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.data.annotation.Transient;
 
 @Entity
+
 @Table(schema="json", name = "vk")
-public class Vk {
-    @Id
+public class Vk implements Serializable {
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", updatable=true)
-    @OneToOne Person person;
 
-    private long id;
+    @Id @Column(name = "id") Long id;
+
+    @MapsId
+    @OneToOne(mappedBy = "vk")
+    @JoinColumn(name = "id")
+
+    private Person person;
+
     private String email;
-    private String Vkid;
+    private String vkid;
 
-
-    public Vk() {
+    public void setPerson(Person person) {
+        this.person = person;
     }
+
     public long getId() {
-        return (id);
+        return id;
     }
 
     public void setId(long id) {
-        this.id = (id);
+        this.id = id;
     }
 
     public String getEmail() {
@@ -38,11 +40,11 @@ public class Vk {
         this.email = email;
     }
 
-    public String getVkid() {
-        return Vkid;
+    public String getvkid() {
+        return vkid;
     }
 
-    public void setVkid(String Vkid) {
-        this.Vkid = Vkid;
+    public void setvkid(String vkid) {
+        this.vkid = vkid;
     }
 }

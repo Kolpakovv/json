@@ -44,6 +44,16 @@ http://www.thymeleaf.org ">
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+
+		</dependency>
+		<dependency>
 			<groupId>com.vk.api</groupId>
 			<artifactId>sdk</artifactId>
 			<version>0.5.12</version>

@@ -1,29 +1,34 @@
 package com.jsonpostgres.entities;
 import javax.persistence.*;
+import java.io.Serializable;
 
-import org.hibernate.annotations.Subselect;
-import org.hibernate.validator.constraints.Email;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.data.annotation.Transient;
 
 @Entity
+
 @Table(schema="json", name = "person")
-public class Person {
-    @Id
-    @SequenceGenerator(name="idgen",
+public class Person implements Serializable{
+
+   @Id
+   @SequenceGenerator(name="idgen",
             sequenceName="idgen",
             allocationSize=1,schema = "json")
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,
-            generator="idgen")
-    @Column(name = "id", updatable=false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "idgen")
+   @Column(name = "id", nullable = false)
+   private long id;
 
-    private long id;
+   @OneToOne(cascade = CascadeType.ALL)
+   @PrimaryKeyJoinColumn
+   private Vk vk;
+
+
+
     private String email;
     private String pass;
 
-
-    public Person() {
+    public void setVk(Vk vk) {
+        this.vk = vk;
     }
+
     public long getId() {
         return id;
     }
@@ -31,7 +36,6 @@ public class Person {
     public void setId(long id) {
         this.id = id;
     }
-
     public String getEmail() {
         return email;
     }

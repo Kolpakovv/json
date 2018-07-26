@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @Controller
@@ -87,8 +86,8 @@ public class GreetingController {
         try {
             List <Person> persons = personRepository.findByEmail(people.getEmail());
 
-            if (containemail(persons,people.getEmail()) == true) {return ("/regerror");
-            }else {personRepository.save(people);
+            if (containemail(persons,people.getEmail())) {return ("/regerror");
+            }else { personRepository.save(people);
             logger.info("Record saved.");
                // System.out.print(md5Apache(people.getpass()));
             }

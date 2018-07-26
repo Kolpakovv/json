@@ -5,8 +5,20 @@
 <head>
     <h1 align="center">Registration page</h1>
     <meta charset="utf-8" />
+    <style type="text/css">
+        .block1 {
+            width: 200px;
+
+            padding: 5px;
+            padding-right: 20px;
+            border: solid 1px black;
+            float: right;
+        }
+
+
+    </style>
 </head>
-<body>
+<body >
 <title>Registration Page</title>
 <center>
 <form action="#" th:action="@{/greeting}" th:object="${greeting}" method="post">
@@ -18,12 +30,14 @@
         <td> Password  :</td> <td> <input type="password"  th:field= "*{Pass}" minlength="5" maxlength="20" required/></td>
     </tr>
         <tr>
-            <td><input type="submit" value="Submit" /></td>
+            <td><input type="submit" value="Submit" /></td><td><a href="/authorization"><button type="button">Authorization</button></a> </td>
          </tr>
     </table>
 </form>
-    <a href="/authorization">Authorization</a>
-    <p><a href = " https://oauth.vk.com/authorize?client_id=6637407&display=page&redirect_uri=http://localhost:8080/VkReg&scope=email&response_type=token&v=5.80">Vk Authorization</a></p>
+
+   <div class="block1"> <p>Войти на сайт с помощью:</p>
+    <p><a href="https://oauth.vk.com/authorize?client_id=6637407&display=page&redirect_uri=http://localhost:8080/VkReg&scope=email&response_type=token&v=5.80">
+        <img src="https://oprosmoskva.ru/wp-content/uploads/vk-logo-psd.png" width="120" height="35"></a></p></div>
 </center>
 </body>
 </html>

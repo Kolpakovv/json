@@ -15,14 +15,13 @@
              <td>Email:</td> <td><input type="email" th:field="*{Email}" required/></td>
          </tr>
         <tr>
-            <td>  Password  : </td> <td><input type="password"  th:field= "*{Pass}" /></td>
+            <td>  Password  : </td> <td><input type="password"  th:field= "*{Pass}" required/></td>
         </tr>
         <tr>
-            <td><input type="submit" value="Submit" /> </td>
+            <td><input type="submit" value="Submit" /> </td><td><a href="/greeting"><button type="button">Registration</button></a> </td>
         </tr>
      </table>
     </form>
-    <a href="/greeting">Registration</a>
 </center>
 </body>
 </html>
