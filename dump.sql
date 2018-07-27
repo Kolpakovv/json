@@ -22,7 +22,7 @@ SET row_security = off;
 CREATE SCHEMA json;
 
 
-ALTER SCHEMA json OWNER TO vasyaas;
+
 
 --
 -- Name: idgen; Type: SEQUENCE; Schema: json; Owner: vasyaas
@@ -36,7 +36,7 @@ CREATE SEQUENCE json.idgen
     CACHE 1;
 
 
-ALTER TABLE json.idgen OWNER TO vasyaas;
+
 
 SET default_tablespace = '';
 
@@ -53,7 +53,6 @@ CREATE TABLE json.person (
 );
 
 
-ALTER TABLE json.person OWNER TO vasyaas;
 
 --
 -- Name: vk; Type: TABLE; Schema: json; Owner: vasyaas
@@ -66,7 +65,6 @@ CREATE TABLE json.vk (
 );
 
 
-ALTER TABLE json.vk OWNER TO vasyaas;
 
 --
 -- Data for Name: person; Type: TABLE DATA; Schema: json; Owner: vasyaas
