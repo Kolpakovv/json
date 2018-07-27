@@ -36,7 +36,7 @@ CREATE SEQUENCE json.idgen
     CACHE 1;
 
 
-ALTER TABLE json.idgen OWNER TO vasyaas;
+
 
 SET default_tablespace = '';
 
