@@ -19,7 +19,9 @@ public class Person implements Serializable{
    @OneToOne(cascade = CascadeType.ALL)
    @PrimaryKeyJoinColumn
    private Vk vk;
-
+    @OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+   private FB fb;
 
 
     private String email;
@@ -27,6 +29,10 @@ public class Person implements Serializable{
 
     public void setVk(Vk vk) {
         this.vk = vk;
+    }
+
+    public void setFb(FB fb) {
+        this.fb = fb;
     }
 
     public long getId() {

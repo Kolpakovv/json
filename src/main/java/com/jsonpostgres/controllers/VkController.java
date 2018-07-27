@@ -8,6 +8,7 @@ import com.jsonpostgres.repositories.VkRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
 import java.util.List;
 
 
@@ -71,27 +76,72 @@ public class VkController {
 
         Person people = new Person();
         Vk men = new Vk();
-        men.setPerson(people);
-        people.setVk(men);
-        people.setId(people.getId());
         people.setEmail(email.toLowerCase());
-
-
         men.setEmail(email.toLowerCase());
-        men.setvkid(Vkid);
 
 
         try {
             List<Vk> vks = vkRepository.findByEmail(men.getEmail());
+            List<Person> prs = personRepository.findByEmail(people.getEmail());
+
 
             if (VkController.containemail(vks,men.getEmail())) {return ("/VkRegResult");
             }else {
-                personRepository.save(people);
+                if(GreetingController.containemail(prs,people.getEmail()))
+                {   for(Person cont : prs){ if(cont.getEmail().equals(email)){
+
+                                                                        men.setvkid(Vkid);
+                                                                        men.setId(cont.getId());
+
+                                                                        men.setPerson(cont);
+                                                                        cont.setVk(men);
+
+                    Connection c = null;
+                    Statement stmt = null;
+                    try {
+                        Class.forName("org.postgresql.Driver");
+                        c = DriverManager
+                                .getConnection("jdbc:postgresql://localhost:5432/postgres",
+                                        "spring", "spring");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        System.err.println(e.getClass().getName()+": "+e.getMessage());
+                        System.exit(0);
+                    }
+                    System.out.println("Opened database successfully");
+                    stmt = c.prepareStatement("INSERT INTO json.vk VALUES(?,?,?);");
+                    ((PreparedStatement) stmt).setLong(1,  men.getId());
+                    ((PreparedStatement) stmt).setString(2, men.getvkid());
+                    ((PreparedStatement) stmt).setString(3,men.getEmail());
+                    ((PreparedStatement) stmt).executeQuery();
+
+
+
+
+                                                                        return ("VkRegResult");
+
+
+                                                                 }System.out.println("oshibka");
+
+
+                                        }
+
+                 }else {
+                    men.setPerson(people);
+                    people.setVk(men);
+                    people.setId(people.getId());
+
+                    men.setvkid(Vkid);
+
+                    personRepository.save(people);
                 vkRepository.save(men);
-                logger.info("Record saved.");
+                logger.info("Record saved.");}
+
+
+
 
             }
-        }catch (Throwable error) {System.out.print("error");
+        }catch (Throwable error) {System.out.print("error");return "VkError";
         }
 
         return "VkRegResult";}
