@@ -36,8 +36,55 @@
             fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     </script>
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '1681617121951281',
+                cookie     : true,  // enable cookies to allow the server to access
+                                    // the session
+                xfbml      : true,  // parse social plugins on this page
+                version    : 'v3.0'
+            });
 
 
+
+            FB.getLoginStatus(function(response) {
+                statusChangeCallback(response);
+            });
+
+        };
+        //function checkLoginState() {
+        //    FB.getLoginStatus(function(response) {
+        //        statusChangeCallback(response);
+        //    });
+        //}
+
+    function statusChangeCallback(response) {
+        console.log('statusChangeCallback');
+        console.log(response);
+        // The response object is returned with a status field that lets the
+        // app know the current login status of the person.
+        // Full docs on the response object can be found in the documentation
+        // for FB.getLoginStatus().
+        if (response.status === 'connected') {
+            // Logged into your app and Facebook.
+            testAPI();
+        } else {
+            // The person is not logged into your app or we are unable to tell.
+            document.getElementById('status').innerHTML = 'Please log ' +
+                'into this app.';
+        }
+    }
+
+    function testAPI() {
+        console.log('Welcome!  Fetching your information.... ');
+        FB.api('/me',{fields: 'email,name'}, function(response) {
+            console.log('Successful login for: ' + response.name);
+            console.log(response);
+            window.location.replace("/facebookConnect")
+        });
+    }
+    </script>
 </head>
 <body>
 <title>Registration Page</title>
@@ -58,11 +105,11 @@
 
    <div class="block1"> <p>Войти на сайт с помощью:</p>
     <p><a href="https://oauth.vk.com/authorize?client_id=6637407&display=page&redirect_uri=http://localhost:8080/VkReg&scope=email&response_type=token&v=5.80">
-        <img src="https://oprosmoskva.ru/wp-content/uploads/vk-logo-psd.png" width="120" height="35"></a></p></div>
-    <a href="/authorization">Authorization</a>
-    <p><a href = " https://oauth.vk.com/authorize?client_id=6637407&display=page&redirect_uri=http://localhost:8080/VkReg&scope=email&response_type=token&v=5.80">Vk</a></p>
-    <fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-    </fb:login-button>
+        <img src="https://oprosmoskva.ru/wp-content/uploads/vk-logo-psd.png" width="120" height="35"></a></p>
+   <p><fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
+   </fb:login-button></p>
+   </div>
+
 
 </center>
 </body>
