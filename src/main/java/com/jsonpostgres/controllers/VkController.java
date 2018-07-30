@@ -141,8 +141,7 @@ public class VkController {
 
 
             }
-        }catch (Throwable error) {System.out.print("error");return "VkError";
-        }
+        }catch (Throwable error) {System.out.print("error"); }
 
         return "VkRegResult";}
 

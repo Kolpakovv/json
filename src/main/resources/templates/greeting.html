@@ -48,11 +48,12 @@
 
 
 
-           // FB.getLoginStatus(function(response) {
-            //    statusChangeCallback(response);
-            //});
+
 
         };
+        //FB.getLoginStatus(function(response) {
+        //    statusChangeCallback(response);
+        //});
         function checkLoginState() {
             FB.getLoginStatus(function(response) {
                 statusChangeCallback(response);
@@ -107,8 +108,7 @@
    <div class="block1"> <p>Войти на сайт с помощью:</p>
     <p><a href="https://oauth.vk.com/authorize?client_id=6637407&display=page&redirect_uri=https://localhost:8080/VkReg&scope=email&response_type=token&v=5.80">
         <img src="https://oprosmoskva.ru/wp-content/uploads/vk-logo-psd.png" width="120" height="35" alt="VK"></a></p>
-   <p><fb:login-button scope="public_profile,email" onlogin="checkLoginState();">
-   </fb:login-button></p>
+   <p><div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true" onlogin = 'checkLoginState()'></div></p>
    </div>
 
 
