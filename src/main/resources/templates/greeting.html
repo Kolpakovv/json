@@ -61,6 +61,7 @@
         }
 
     function statusChangeCallback(response) {
+
         console.log('statusChangeCallback');
         console.log(response);
         // The response object is returned with a status field that lets the
@@ -87,8 +88,11 @@
         });
     }
     </script>
+
+
+
 </head>
-<body>
+<body >
 <title>Registration Page</title>
 <center>
 <form action="#" th:action="@{/greeting}" th:object="${greeting}" method="post">
@@ -97,7 +101,7 @@
            <td>Email: </td><td><input type="email" th:field="*{Email}" required maxlength="50"/></td>
        </tr>
     <tr>
-        <td> Password  :</td> <td> <input type="password"  th:field= "*{Pass}" minlength="5" maxlength="20" required/></td>
+        <td> Password  :</td> <td> <input type="password"  th:field= "*{Pass}" minlength="5" maxlength="20" required id="password1"/></td>
     </tr>
         <tr>
             <td><input type="submit" value="Submit" /></td><td><a href="/authorization"><button type="button">Authorization</button></a> </td>
@@ -108,7 +112,7 @@
    <div class="block1"> <p>Войти на сайт с помощью:</p>
     <p><a href="https://oauth.vk.com/authorize?client_id=6637407&display=page&redirect_uri=https://localhost:8080/VkReg&scope=email&response_type=token&v=5.80">
         <img src="https://oprosmoskva.ru/wp-content/uploads/vk-logo-psd.png" width="120" height="35" alt="VK"></a></p>
-   <p><div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true" onlogin = 'checkLoginState()'></div></p>
+   <p><div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true" onlogin = "checkLoginState()"></div></p>
    </div>
 
 

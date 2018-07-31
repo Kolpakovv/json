@@ -1,15 +1,19 @@
 package com.jsonpostgres.controllers;
 import com.jsonpostgres.entities.FB;
+import com.jsonpostgres.entities.Greetings;
 import com.jsonpostgres.entities.Person;
 import com.jsonpostgres.repositories.FbRepository;
 import com.jsonpostgres.repositories.PersonRepository;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -27,6 +31,10 @@ import org.slf4j.LoggerFactory;
 
 @Controller
 public class FBController {
+
+    public static String md5Apache(String st) {
+        String md5Hex = DigestUtils.md5Hex(st);
+        return md5Hex;}
 
     private static boolean containemail(List<FB> c, String email) {
         for(FB o : c) {
@@ -53,7 +61,8 @@ public class FBController {
 
     @GetMapping("/facebookConnect")
     @RequestMapping(value="/facebookConnect", method = RequestMethod.GET)
-    public String FaceForm1(HttpServletRequest request) {
+    public String facebookConnect(Model model, HttpServletRequest request) {
+        model.addAttribute("facebookConnect", new Greetings());
         Cookie[] cookies = request.getCookies();
         int arrlenght = cookies.length;
         System.out.println(arrlenght);
@@ -78,7 +87,7 @@ public class FBController {
             List<Person> prs = personRepository.findByEmail(people.getEmail());
 
 
-            if (FBController.containemail(vks,men.getEmail())) {return ("/VkRegResult");
+            if (FBController.containemail(vks,men.getEmail())) {return ("/facebookConnect");
             }else {
                 if(GreetingController.containemail(prs,people.getEmail()))
                 {   for(Person cont : prs){ if(cont.getEmail().equals(fbemail)){
@@ -107,7 +116,7 @@ public class FBController {
                     ((PreparedStatement) stmt).setString(2, men.getfbid());
                     ((PreparedStatement) stmt).setString(3,men.getEmail());
                     ((PreparedStatement) stmt).executeQuery();
-                    return ("VkRegResult");
+                    return ("facebookConnect");
 
 
                 }System.out.println("oshibka");
@@ -133,7 +142,69 @@ public class FBController {
         }catch (Throwable error) {System.out.print("error");
         }
 
-        return "VkRegResult";}
+        return "facebookConnect";}
+
+
+    @RequestMapping(value = "/facebookConnect", method = RequestMethod.POST)
+    public String facebookConnect(@ModelAttribute Greetings fb, Model model, HttpServletRequest request){
+        model.addAttribute("facebookConnect", fb);
+        Cookie[] cookies = request.getCookies();
+        String email="";
+        for(Cookie i :cookies){
+            if(i.getName().equals("fbemail")){email = i.getValue();}
+        }
+
+        Person people = new Person();
+        people.setEmail(email);
+        try {
+            List<Person> prs = personRepository.findByEmail(people.getEmail());
+
+
+
+            if(GreetingController.containemail(prs,people.getEmail()))
+            {   for(Person cont : prs){ if(cont.getEmail().equals(email)){
+                System.out.println(cont.getId());
+
+                Connection c = null;
+                Statement stmt = null;
+                try {
+                    Class.forName("org.postgresql.Driver");
+                    c = DriverManager
+                            .getConnection("jdbc:postgresql://localhost:5432/postgres",
+                                    "spring", "spring");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    System.err.println(e.getClass().getName()+": "+e.getMessage());
+                    System.exit(0);
+                }
+                System.out.println("Opened database successfully");
+                stmt = c.prepareStatement("UPDATE json.person SET pass = (?) WHERE id = (?);");
+                ((PreparedStatement) stmt).setString(1,  md5Apache(fb.getPass()));
+                ((PreparedStatement) stmt).setLong(2, cont.getId());
+                System.out.println(stmt);
+                ((PreparedStatement) stmt).executeQuery();
+
+
+
+
+                return ("facebookConnect");
+
+
+            }System.out.println("oshibka");
+
+
+            }
+
+            }
+
+
+
+
+
+        }catch (Throwable error) {}
+
+        return "facebookConnect";}
+
 
 
 }
