@@ -89,7 +89,7 @@ public class GreetingController {
             if (containemail(persons,people.getEmail())) {return ("/regerror");
             }else { personRepository.save(people);
             logger.info("Record saved.");
-               // System.out.print(md5Apache(people.getpass()));
+
             }
         }catch (Throwable error) {System.out.print("error");
         }
