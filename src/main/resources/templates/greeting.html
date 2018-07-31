@@ -14,6 +14,69 @@
             border: solid 1px black;
             float: right;
         }
+        @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,500);
+        *:focus {
+            outline: none;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #FFEFD5;
+            font-size: 16px;
+            color: #222;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 300;
+        }
+
+        #login-box {
+            position: relative;
+            margin: 5% auto;
+            width: 600px;
+            height: 400px;
+            background: #FFF;
+            border-radius: 2px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        .left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            box-sizing: border-box;
+            padding: 40px;
+            width: 300px;
+            height: 400px;
+        }
+
+        h1 {
+            margin: 0 0 20px 0;
+            font-weight: 300;
+            font-size: 28px;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            display: block;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            padding: 4px;
+            width: 220px;
+            height: 32px;
+            border: none;
+            border-bottom: 1px solid #AAA;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            font-size: 15px;
+            transition: 0.2s ease;
+        }
+
+        input[type="email"]:focus,
+        input[type="password"]:focus {
+            border-bottom: 2px solid #16a085;
+            color: #16a085;
+            transition: 0.2s ease;
+        }
 
 
     </style>
@@ -61,7 +124,6 @@
         }
 
     function statusChangeCallback(response) {
-
         console.log('statusChangeCallback');
         console.log(response);
         // The response object is returned with a status field that lets the
@@ -88,34 +150,35 @@
         });
     }
     </script>
+    <script>
+        function check(input) {
+            if (input.value != document.getElementById('password').value) {
+                input.setCustomValidity('Password Must be Matching.');
+            } else {
+                // input is valid -- reset the error message
+                input.setCustomValidity('');
 
+                }
+            }
 
-
+    </script>
 </head>
-<body >
+<body>
 <title>Registration Page</title>
 <center>
-<form action="#" th:action="@{/greeting}" th:object="${greeting}" method="post">
-    <table>
-       <tr>
-           <td>Email: </td><td><input type="email" th:field="*{Email}" required maxlength="50"/></td>
-       </tr>
-    <tr>
-        <td> Password  :</td> <td> <input type="password"  th:field= "*{Pass}" minlength="5" maxlength="20" required id="password1"/></td>
-    </tr>
-        <tr>
-            <td><input type="submit" value="Submit" /></td><td><a href="/authorization"><button type="button">Authorization</button></a> </td>
-         </tr>
-    </table>
-</form>
+    <form  class="pure-form" id="login-box" action="#" th:action="@{/greeting}" th:object="${greeting}" method="post">
+                <h1>Sign up</h1>
+         <input type="email" name="email" placeholder="E-mail"   th:field="*{Email}" required maxlength="50"  />
+        <input type="password" name="password" placeholder="Password" id="password"  th:field= "*{Pass}" minlength="5" maxlength="20" />
+        <input type="password" name="confirm_password" placeholder="confirm_password" id="confirm_password" minlength="5" maxlength="20" oninput="check(this)"/>
+            <span id='message'></span>
+        <button type="submit" class="pure-button pure-button-primary">Confirm</button>
+        <a href="/authorization"><button type="button">Authorization</button></a>
 
-   <div class="block1"> <p>Войти на сайт с помощью:</p>
     <p><a href="https://oauth.vk.com/authorize?client_id=6637407&display=page&redirect_uri=https://localhost:8080/VkReg&scope=email&response_type=token&v=5.80">
         <img src="https://oprosmoskva.ru/wp-content/uploads/vk-logo-psd.png" width="120" height="35" alt="VK"></a></p>
-   <p><div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true" onlogin = "checkLoginState()"></div></p>
-   </div>
-
-
+   <p><div class="fb-login-button" data-max-rows="1" data-size="medium" data-button-type="continue_with" data-show-faces="false" data-auto-logout-link="false" data-use-continue-as="true" onlogin = 'checkLoginState()'></div></p>
+    </form>
 </center>
 </body>
 </html>
