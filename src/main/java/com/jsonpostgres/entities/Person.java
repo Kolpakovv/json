@@ -23,6 +23,10 @@ public class Person implements Serializable{
     @PrimaryKeyJoinColumn
    private FB fb;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private Info info;
+
 
     private String email;
     private String pass;
@@ -33,6 +37,9 @@ public class Person implements Serializable{
 
     public void setFb(FB fb) {
         this.fb = fb;
+    }
+    public void setInfo(Info info) {
+        this.info = info;
     }
 
     public long getId() {

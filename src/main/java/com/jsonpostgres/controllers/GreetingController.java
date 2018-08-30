@@ -2,7 +2,9 @@ package com.jsonpostgres.controllers;
 
 
 import com.jsonpostgres.entities.Greetings;
+import com.jsonpostgres.entities.Info;
 import com.jsonpostgres.entities.Person;
+import com.jsonpostgres.repositories.InfoRepository;
 import com.jsonpostgres.repositories.PersonRepository;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.slf4j.Logger;
@@ -38,9 +40,11 @@ public class GreetingController {
         return md5Hex;
     }
         private PersonRepository personRepository;
+        private InfoRepository infoRepository;
     @Autowired
-    public GreetingController(PersonRepository personRepository) {
+    public GreetingController(PersonRepository personRepository, InfoRepository infoRepository) {
         this.personRepository = personRepository;
+        this.infoRepository = infoRepository;
     }
     private final static Logger logger = LoggerFactory.getLogger(GreetingController.class);
     @GetMapping("/greeting")
@@ -80,14 +84,20 @@ public class GreetingController {
     public String greetingSubmit(@ModelAttribute Greetings greeting, Model model){
     model.addAttribute("greeting", greeting);
         Person people = new Person();
+        Info inf = new Info();
         people.setId(greeting.getId());
         people.setEmail(greeting.getEmail().toLowerCase());
         people.setpass(md5Apache(greeting.getPass()));
+        people.setInfo(inf);
+        inf.setPerson(people);
+        inf.setId(people.getId());
+        inf.setEmail(greeting.getEmail().toLowerCase());
         try {
             List <Person> persons = personRepository.findByEmail(people.getEmail());
 
             if (containemail(persons,people.getEmail())) {return ("/regerror");
             }else { personRepository.save(people);
+                infoRepository.save(inf);
             logger.info("Record saved.");
 
             }

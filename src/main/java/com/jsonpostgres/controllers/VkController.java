@@ -1,8 +1,10 @@
 package com.jsonpostgres.controllers;
 
 import com.jsonpostgres.entities.Greetings;
+import com.jsonpostgres.entities.Info;
 import com.jsonpostgres.entities.Person;
 import com.jsonpostgres.entities.Vk;
+import com.jsonpostgres.repositories.InfoRepository;
 import com.jsonpostgres.repositories.PersonRepository;
 import com.jsonpostgres.repositories.VkRepository;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,14 +47,15 @@ public class VkController {
         return false;
     }
     @Autowired
-    public VkController(PersonRepository personRepository, VkRepository vkRepository) {
+    public VkController(PersonRepository personRepository, VkRepository vkRepository, InfoRepository infoRepository) {
         this.personRepository = personRepository;
         this.vkRepository = vkRepository;
+        this.infoRepository = infoRepository;
     }
     private final static Logger logger = LoggerFactory.getLogger(VkController.class);
     private PersonRepository personRepository;
     private VkRepository vkRepository;
-
+    private InfoRepository infoRepository;
     @GetMapping("/VkReg")
     @RequestMapping(value="/VkReg", method = RequestMethod.GET)
     public String VkForm() {
@@ -72,7 +76,7 @@ public class VkController {
         String Vkid="";
 
         for(Cookie i :cookies){
-           System.out.println(i.getName());
+           //System.out.println(i.getName());
             if(i.getName().equals("email")){email = i.getValue();}
             if (i.getName().equals("id")){Vkid = i.getValue();}
 
@@ -83,8 +87,14 @@ public class VkController {
 
         Person people = new Person();
         Vk men = new Vk();
+
         people.setEmail(email.toLowerCase());
         men.setEmail(email.toLowerCase());
+        List<Info> inf = infoRepository.findByEmail(email.toLowerCase());
+
+        Info innf = inf.get(0);
+        System.out.print("emaillllll: ");
+        System.out.println(innf.getEmail());
 
 
         try {
@@ -92,7 +102,11 @@ public class VkController {
             List<Person> prs = personRepository.findByEmail(people.getEmail());
 
 
-            if (VkController.containemail(vks,men.getEmail())) {return ("/VkRegResult");
+
+            if (VkController.containemail(vks,men.getEmail())) {
+
+                model.addAttribute("info",innf);
+                return ("/VkRegResult");
             }else {
                 if(GreetingController.containemail(prs,people.getEmail()))
                 {   for(Person cont : prs){ if(cont.getEmail().equals(email)){
@@ -154,8 +168,9 @@ public class VkController {
 
 
     @RequestMapping(value = "/VkRegResult", method = RequestMethod.POST)
-    public String VkRegResult(@ModelAttribute Greetings vkres, Model model, HttpServletRequest request){
+    public String VkRegResult(@ModelAttribute Greetings vkres, @ModelAttribute Info info,Model model, HttpServletRequest request){
         model.addAttribute("VkRegResult", vkres);
+        model.addAttribute("Inform", info);
         Cookie[] cookies = request.getCookies();
         String email="";
         for(Cookie i :cookies){

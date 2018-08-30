@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xml lang="en" xmlns="http://www.w3.org/1999/xhtml"xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Information</title>
+</head>
+<body>
+
+
+<center>
+    <h1>Profile Information</h1>
+    <form action="#" th:action="@{/SetInfo}" th:object="${Inform}" method="post">
+        <table>
+            <tr>
+                <td>Id: </td><td><input type="text" id="id" th:field="*{id}" required maxlength="50" readonly/></td>
+            </tr>
+            <tr>
+                <td>Firstname: </td><td><input type="text" id="fname" th:field="*{firstname}" required maxlength="50" /></td>
+            </tr>
+            <tr>
+                <td>Secondname: </td><td><input type="text" id="sname" th:field="*{secondname}" required maxlength="50" /></td>
+            </tr>
+            <tr>
+                <td>Email: </td><td><input type="email" id="mail" th:field="*{email}" required maxlength="50" readonly/></td>
+            </tr>
+            <tr>
+                <td>Age: </td><td><input type="text" id="age" th:field="*{age}" required maxlength="3" /></td>
+            </tr>
+            <tr>
+                <td>Country: </td><td><input type="text" id="country" th:field="*{country}" required maxlength="50" /></td>
+            </tr>
+            <tr>
+                <td>City: </td><td><input type="text" id="city" th:field="*{city}" required maxlength="50" /></td>
+            </tr>
+
+            <tr>
+                <td><input type="submit" value="Change Information" /></td>
+            </tr>
+        </table>
+    </form>
+    <a href="/greeting">Return to Registration page</a>
+
+</center>
+</body>
+</html>
